@@ -1,6 +1,17 @@
 {
   "name": "bylo",
-  "private": true,
+  "description": "eCommerce sample application",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/slaymance/bylo.git"
+  },
+  "author": "Shane Laymance",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/slaymance/bylo/issues"
+  },
+  "homepage": "https://github.com/slaymance/bylo#readme",
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
