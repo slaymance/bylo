@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { gql } from 'graphql-request';
-import React, { useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
 const getProducts = gql`
   query GetProducts {
@@ -38,7 +38,7 @@ type GlobalContextState = {
   setRoute: (route: string) => void;
 }
 
-const GlobalContext = React.createContext<GlobalContextState | null>(null);
+const GlobalContext = createContext<GlobalContextState | null>(null);
 
 export const useGlobalContext = () => {
   const context = useContext(GlobalContext);
@@ -48,7 +48,7 @@ export const useGlobalContext = () => {
   return context;
 };
 
-export function GlobalContextProvider({ children }: { children: React.ReactNode }) {
+export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const { data } = useQuery({
     queryKey: ['getProducts'],
     queryFn: async () => {

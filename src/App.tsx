@@ -19,7 +19,7 @@ function App() {
       <>
         <NavBar />
         <CartModal />
-        {PageComponent === ProductPage ? <PageComponent product={state.selectedProduct} /> : <PageComponent />}
+        <PageComponent product={PageComponent === ProductPage ? state.selectedProduct : null} />
       </>
     );
   } else {
