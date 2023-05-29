@@ -14,11 +14,17 @@ export default defineConfig({
         '/public/bylo.ico',
       ],
       manifest: {
+        background_color: 'white',
         icons: [
           {
-            purpose: 'any',
             src: '/src/assets/bylo-mobile.png',
-            sizes: 'any',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: '/src/assets/bylo-mobile.png',
+            sizes: '512x512',
+            type: 'image/png',
           },
         ],
       },
