@@ -1,10 +1,10 @@
 import ProductCard from './ProductCard';
-import { useGlobalContext } from '../GlobalContext';
+import { useGlobalContext, ProductType } from '../GlobalContext';
 
 export default function ProductList() {
-  const { state, updateState, setRoute } = useGlobalContext() as any;
+  const { state, updateState, setRoute } = useGlobalContext();
 
-  const handleProductClick = (product: any) => {
+  const handleProductClick = (product: ProductType) => {
     updateState({ selectedProduct: product });
     setRoute(`/product?id=${product.id}`);
   };
@@ -15,8 +15,8 @@ export default function ProductList() {
         <h2 className="sr-only">Products</h2>
 
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {state.products.map((product: any) => (
-            <ProductCard key={product.id} handleClick={handleProductClick} {...product} />
+          {state.products.map((product: ProductType) => (
+            <ProductCard key={product.id} handleClick={handleProductClick} product={product} />
           ))}
         </div>
       </div>
