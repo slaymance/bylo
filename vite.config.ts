@@ -11,6 +11,7 @@ export default defineConfig({
       includeAssets: [
         '/src/assets/bylo.png',
         '/src/assets/bylo-mobile.png',
+        '/src/assets/bylo-mobile-white.png',
         '/public/bylo.ico',
       ],
       manifest: {
