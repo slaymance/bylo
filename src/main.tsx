@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 
 import { GlobalContextProvider } from './GlobalContext';
 import App from './App';
-import './index.css';
 
 const queryClient = new QueryClient();
 
