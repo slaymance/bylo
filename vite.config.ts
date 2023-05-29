@@ -19,7 +19,6 @@ export default defineConfig({
             purpose: 'any',
             src: '/src/assets/bylo-mobile.png',
             sizes: 'any',
-            type: 'image/svg+xml',
           },
         ],
       },
