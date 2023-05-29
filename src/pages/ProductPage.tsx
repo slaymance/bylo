@@ -42,8 +42,8 @@ export default function ProductPage({ product }: { product: ProductType | null }
                   onClick={(e) => {
                     e.preventDefault();
 
-                    if (state.cart.some(({ id }) => id === product.id)) {
-                      updateState({ cart: state.cart.map((cartProduct) => cartProduct.id === product.id ? { ...cartProduct, quantity: cartProduct.quantity + 1 } : cartProduct) });
+                    if (state.cart.some(({ _id }) => _id === product._id)) {
+                      updateState({ cart: state.cart.map((cartProduct) => cartProduct._id === product._id ? { ...cartProduct, quantity: cartProduct.quantity + 1 } : cartProduct) });
                     } else {
                       updateState({ cart: [...state.cart, { ...product, quantity: 1 }] });
                     }

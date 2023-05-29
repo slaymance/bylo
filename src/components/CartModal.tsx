@@ -55,7 +55,7 @@ export default function CartModal() {
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
                             {state.cart.map((product) => (
-                              <li key={product.id} className="flex py-6">
+                              <li key={product._id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
                                     src={product.imageSrc}
@@ -84,9 +84,9 @@ export default function CartModal() {
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                         onClick={() => {
                                           if (product.quantity > 1) {
-                                            updateState({ cart: state.cart.map((cartProduct) => cartProduct.id === product.id ? { ...cartProduct, quantity: cartProduct.quantity - 1 } : cartProduct) })
+                                            updateState({ cart: state.cart.map((cartProduct) => cartProduct._id === product._id ? { ...cartProduct, quantity: cartProduct.quantity - 1 } : cartProduct) })
                                           } else {
-                                            updateState({ cart: state.cart.filter(({ id }) => id !== product.id) })
+                                            updateState({ cart: state.cart.filter(({ _id }) => _id !== product._id) })
                                           }
                                         }}
                                       >
@@ -111,7 +111,7 @@ export default function CartModal() {
                       <div className="mt-6">
                         <a
                           href="#"
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          className="flex items-center justify-center rounded-md border border-transparent bg-[#5271ff] px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
                         </a>
