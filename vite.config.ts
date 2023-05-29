@@ -8,22 +8,16 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      includeAssets: [
-        '/src/assets/bylo.png',
-        '/src/assets/bylo-mobile.png',
-        '/src/assets/bylo-mobile-white.png',
-        '/public/bylo.ico',
-      ],
       manifest: {
         background_color: 'white',
         icons: [
           {
-            src: '/src/assets/bylo-mobile.png',
+            src: '/bylo-mobile.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: '/src/assets/bylo-mobile.png',
+            src: '/bylo-mobile.png',
             sizes: '512x512',
             type: 'image/png',
           },
