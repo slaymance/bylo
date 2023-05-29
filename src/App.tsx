@@ -1,6 +1,7 @@
 import { useGlobalContext } from './GlobalContext';
 import CartModal from './components/CartModal';
 import NavBar from './components/NavBar';
+import AddProductPage from './pages/AddProductPage';
 import ProductPage from './pages/ProductPage';
 import ShopPage from './pages/ShopPage';
 
@@ -12,6 +13,8 @@ function App() {
     PageComponent = ShopPage;
   } else if (state.currentPage.includes('/product')) {
     PageComponent = ProductPage;
+  } else if (state.currentPage === 'addProduct') {
+    PageComponent = AddProductPage;
   }
 
   if (PageComponent) {

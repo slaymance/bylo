@@ -19,7 +19,7 @@ export type ProductType = {
   _id: number;
   name: string;
   price: number;
-  imageSrc: string;
+  imageSrc?: string;
 }
 
 type ProductCartType = ProductType & { quantity: number; }
@@ -34,6 +34,7 @@ type GlobalState = {
 type GlobalContextState = {
   state: GlobalState;
   products: ProductType[];
+  addProduct: (newProduct: ProductType) => void;
   updateState: (newState: Partial<GlobalState>) => void;
   setRoute: (route: string) => void;
 }
@@ -69,12 +70,16 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
 
   const updateState = (newState: Partial<GlobalState>) => {
     setState(prevState => ({ ...prevState, ...newState }));
-  }
+  };
+
+  const addProduct = (newProduct: ProductType) => {
+    updateState((data?.products.data ?? []).concat(newProduct));
+  };
 
   const setRoute = (route: string) => {
     setState(prevState => ({ ...prevState, currentPage: route }));
     window.history.pushState(null, '', route);
-  }
+  };
 
   useEffect(() => {
     const handlePopState = () => {
@@ -89,7 +94,13 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ state, products: data?.products.data ?? [], updateState, setRoute }}>
+    <GlobalContext.Provider value={{
+      state,
+      products: data?.products.data ?? [],
+      updateState,
+      addProduct,
+      setRoute
+    }}>
       {children}
     </GlobalContext.Provider>
   );

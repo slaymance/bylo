@@ -11,7 +11,8 @@ const client = new GraphQLClient('https://graphql.us.fauna.com/graphql', {
 
 export const handler: Handler = async (event) => {
   const query = event.queryStringParameters?.query as RequestDocument;
-  const data = await client.request(query);
+  const { variables } = JSON.parse(event?.body ?? '{}');
+  const data = await client.request(query, variables);
 
   return {
     statusCode: 200,

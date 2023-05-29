@@ -8,6 +8,7 @@ import ByloLogo from '../assets/bylo.png';
 const navigation = {
   pages: [
     { name: 'Shop' },
+    { name: 'Add Product' },
   ],
 };
 
@@ -58,7 +59,7 @@ export default function NavBar() {
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="hover:cursor-pointer flow-root -m-2 block p-2 font-medium text-gray-900" onClick={() => {
                       setOpen(false);
-                      setRoute('/')
+                      setRoute(page.name === 'Shop' ? '/' : 'addProduct')
                     }}>
                       {page.name}
                     </div>
@@ -97,7 +98,7 @@ export default function NavBar() {
                   {navigation.pages.map((page) => (
                     <div
                       key={page.name}
-                      onClick={() => setRoute('/')}
+                      onClick={() => setRoute(page.name === 'Shop' ? '/' : 'addProduct')}
                       className="hover:cursor-pointer flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
