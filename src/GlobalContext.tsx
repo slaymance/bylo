@@ -53,10 +53,20 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const { data } = useQuery({
     queryKey: ['getProducts'],
     queryFn: async () => {
-      const response = await fetch(`/.netlify/functions/faunaQuery?query=${getProducts}`);
+      const response = await fetch('/api/fauna', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: getProducts,
+        })
+      });
+
       if (!response.ok) {
         throw new Error('Network request failed.');
       }
+
       return response.json();
     },
   });
@@ -73,7 +83,7 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   };
 
   const addProduct = (newProduct: ProductType) => {
-    updateState((data?.products.data ?? []).concat(newProduct));
+    updateState((data?.body.products.data ?? []).concat(newProduct));
   };
 
   const setRoute = (route: string) => {
@@ -96,7 +106,7 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   return (
     <GlobalContext.Provider value={{
       state,
-      products: data?.products.data ?? [],
+      products: data?.body?.products.data ?? [],
       updateState,
       addProduct,
       setRoute

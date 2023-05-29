@@ -1,4 +1,5 @@
 import { gql } from 'graphql-request';
+import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { ProductType, useGlobalContext } from '../GlobalContext';
@@ -17,14 +18,17 @@ export default function AddProductPage() {
   const { setRoute } = useGlobalContext();
   const queryClient = useQueryClient();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const mutation = useMutation({
     mutationFn: async (newProduct: Pick<ProductType, 'name' | 'price'>) => {
-      const response = await fetch(`/.netlify/functions/faunaQuery?query=${addProductMutation}`, {
+      const response = await fetch('/api/fauna', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          query: addProductMutation,
           variables: newProduct,
         })
       });
@@ -33,14 +37,14 @@ export default function AddProductPage() {
         throw new Error('Network request failed.');
       }
 
-      const { data } = response.json() as unknown as { data: ProductType };
-      return data;
+      return response.json();
     },
     onMutate: async (newProduct: Pick<ProductType, 'name' | 'price'>) => {
+      setIsLoading(true);
       await queryClient.cancelQueries({ queryKey: ['getProducts'] });
 
       const previousProducts = queryClient.getQueryData(['getProducts']) as ProductType[];
-      queryClient.setQueryData<any>(['getProducts'], ({ products: { data: oldProducts } }: { products: { data: ProductType[] } }) => ({ products: { data: [...oldProducts, newProduct] } }));
+      queryClient.setQueryData<any>(['getProducts'], ({ body: { products: { data: oldProducts } } }: { body: { products: { data: ProductType[] } } }) => ({ body: { products: { data: [...oldProducts, newProduct] } } }));
 
       return { previousProducts };
     },
@@ -48,6 +52,7 @@ export default function AddProductPage() {
       queryClient.setQueryData(['getProducts'], context?.previousProducts);
     },
     onSettled: () => {
+      setIsLoading(false);
       queryClient.invalidateQueries({ queryKey: ['getProducts'] });
       setRoute('/');
     },
@@ -117,8 +122,9 @@ export default function AddProductPage() {
               <button
                 type="submit"
                 className="rounded-md bg-[#5271ff] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5271ff]"
+                disabled={isLoading}
               >
-                Add
+                {isLoading ? 'Processing...' : 'Add'}
               </button>
             </div>
           </form>
