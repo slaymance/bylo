@@ -27,7 +27,7 @@ const products: ProductType[] = [
   },
 ];
 
-type ProductType = {
+export type ProductType = {
   id: number;
   name: string;
   price: number;
